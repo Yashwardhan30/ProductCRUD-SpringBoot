@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<title>Product Dashboard</title>
+	</head>
+	<body>
+	<div>
+		<table>
+				<tr>
+					<td>Product Id</td>
+					<td><input type="number" id="prodId"></td>
+				</tr>
+				<tr>
+					<td>Product Name</td>
+					<td><input type="text" id="prodName"></td>
+				</tr>
+				<tr>
+					<td>Product Price</td>
+					<td><input type="number" id="prodPrice"></td>
+				</tr>
+				<tr>
+					<td>Product Quantity</td>
+					<td><input type="number" id="prodQty"></td>
+				</tr>
+			</table>
+			<br> <br><button onclick="createProd()">Add Product</button><br>
+	</div>
+	</body>
+	<script>
+		var prodIdElm=document.getElementById("prodId");
+		var prodNameElm=document.getElementById("prodName");
+		var prodPriceElm=document.getElementById("prodPrice");
+		var prodQtyElm=document.getElementById("prodQty");
+
+		function createProd(params){
+			var prod={
+				prodId: prodIdElm.value,
+				prodName: prodNameElm.value,
+				prodPrice: prodPriceElm.value,
+				prodQty: prodQtyElm.value
+			};
+		
+		fetch("http://localhost:4200/product/create",{
+			method:"post",
+			headers:{
+				'Context-type': 'application/json'
+			},
+			body: JSON.stringify(prod)
+		}).then((response) => {
+            console.log(response);
+            alert('Added Successful');
+            response.redirected();
+        }).catch(error => {
+            alert('try again')
+            console.error(error);
+        });
+        }
+	</script>
+</html>
